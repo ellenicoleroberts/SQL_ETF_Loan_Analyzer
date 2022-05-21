@@ -1,12 +1,11 @@
-<img src= "Images/sanfran.png" width="930" height="300">
+<img src= "Images/investment.png" width="930" height="300">
 
-# Challenge_7_Passive_Investing
+# ETF Loan Analyzer
 
-This application offers clients an online investment solution for their retirement portfolios through the use of algorithms that choose from various investment styles and options.
-
-The goal is to determine the fund with the most investment potential based on key risk-management metrics: the daily returns, standard deviations, Sharpe ratios, and betas.
+ This Jupyter notebook builds a financial database and web application by using SQL, Python, and the Voilà library for the purpose of analyzing the performance of a hypothetical fintech ETF consisting of four stocks: GOST, GS, PYPL, and SQ. Each stock has its own table in the etf.db database (included in this repo).
 
 ---
+
 ## Technologies
 
 This application leverages python 3.7 with the following packages:
@@ -15,47 +14,40 @@ This application leverages python 3.7 with the following packages:
 * pathlib: for creation of file paths allowing the application to interact with a computer's filesystem.
 * hvplot.pandas: a visualization library included in the PyViz package that can produce advanced charts    
   and interactive visualizations. 
-* sqlalchemy: a library that facilitates the communication between a Python program and a 
-  database created from a Jupyter notebook.  
+* sqlalchemy: a library that facilitates the communication between a Python program and a database created from a Jupyter notebook.  
+* voila: turns Jupyter notebooks into standalone web applications.
 
 ---
+
 ## Installation Guide
 
-To run PyViz and its dependencies, it is best to first create a new environment in your terminal and install the PyViz pacakges within this environment by completing the following steps:
+Begin by cloning the GitHub repo (the same repo that this README.md file is contained within) into your terminal. 
 
-STEP 1: In your terminal, enter:
+Then activate the correct environment by inputting the following command into your terminal:
 
-`conda create -n PyViz python=3.7 anaconda`
+`conda activate dev`
 
-STEP 2: Activate the environment you created in Step 1 (PyViz) by inputting the following command in your terminal:
+Within this environment, next install the above listed dependencies. To do so, in your terminal while in this same repo, enter `pip install -r requirements.txt`.
 
-`conda activate PyViz`
+The hvPlot library needs to be installed seperately. To do so, in your terminal enter `conda install -c pyviz hvplot`.
 
-STEP 3: Within this environment, install the PyViz packages by using the conda install command as follows:
+Next, while in your IDE, open the "etf_analyzer.ipynb" notebook file and run the code. 
 
-`conda install -c pyviz hvplot geoviews`
+Optional: If you would like to deploy this notebook as a Web Application through the use of the Voilà library, make sure to install Voilà in your terminal with `conda install -c conda-forge voila`.
 
-STEP 4: Clone the GitHub repo (the one this file is contained in) into your Terminal. 
+To use Voilà, first navigate to the folder containing the etf_analyzer.ipynb notebook in your terminal and then enter: `voila etf_analyzer.ipynb`. Here is an example of a segment of the output:
 
-STEP 5: To install the remaining packages, while in this same repo in your Terminal, enter `pip install -r requirements.txt`.
-
-Finally, to run the code, in your IDE open the "san_francisco_housing.ipynb" notebook file and run it.
+![voila example.](images/voila.png)
 
 ---
 
 ## Usage
 
-To begin with, the code imports and reads data from the whale_navs.csv file included in this repo. This file contains NAV prices of four major funds plus S&P 500 Index data. Once the data is imported, it is converted into a Pandas DataFrame including only daily return values for each of the funds and the S&P 500 Index. 
+The first part of this notebook analyzes PayPal (PYPL). It makes an SQL query to obtain all data from the PYPL table. Using hvPlot, an interactive visualization for the PYPL daily returns is created as well as an interactive visualization for the PYPL cumulative returns. 
 
-These daily returns are plotted on an overlay line plot for visual comparison. Next, each of the funds' and the S&P 500 Index's cumulative returns are calculated for the time period and then plotted on the same plot, again overlayed for visual comparison, as shown here:
+The closing prices for PYPL that are greater than 200 are then selected with another SQL query. Further, again using an SQL query, the top 10 daily returns for PYPL are obtained.
 
-![Cumulative returns plot.](images/geomap.png)
-
-Volatility of each of the four fund portfolios and of the S&P 500 Index is then visually analyzed with box plots. Standard deviations are next determined, as well as the annualized standard deviation and rolling standard deviations for a 21-day window. These rolling standard deviations are plotted on an overlay line plot.
-
-Risk-return metrics are next analyzed. Sharpe ratios are calculated and visualized via a bar plot for comparison.
-
-To evaluate how the portfolios react relative to the broader market, covariance using a 60-day rolling window is determined for each of the best two performing funds (selected on a risk-return basis) compared to the S&P 500 Index. Beta values, likewise using a 60-day rolling window, are then determined and plotted.
+Next, using SQL, the notebook builds an ETF portfolio and then evaluates its performance. To do so, an SQL query is used to access each table in the database and joins them into a single DataFrame. The daily returns are then calculated for each stock, followed by the daily returns for the entire ETF by averaging the daily returns of each stock for a given day (assuming an equal-weighted portfolio). These ETF daily returns are then used to calculate the annualized returns and the cumulative returns for the ETF. The cumulative return values of the ETF portfolio are visualized with an interactive line plot using hvPlot.
 
 ---
 
