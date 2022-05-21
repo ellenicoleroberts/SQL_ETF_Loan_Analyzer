@@ -1,4 +1,4 @@
-<img src= "Images/investment.png" width="930" height="300">
+<img src= "images/investment.png" width="930" height="300">
 
 # ETF Loan Analyzer
 
