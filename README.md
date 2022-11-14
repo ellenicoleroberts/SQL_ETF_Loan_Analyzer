@@ -1,6 +1,6 @@
 <img src= "images/investment.png" width="930" height="300">
 
-# ETF Loan Analyzer
+# SQL ETF Loan Analyzer
 
  This Jupyter notebook builds a financial database and web application by using SQL, Python, and the Voilà library for the purpose of analyzing the performance of a hypothetical fintech ETF consisting of four stocks: GOST, GS, PYPL, and SQ. Each stock has its own table in the etf.db database (included in this repo).
 
